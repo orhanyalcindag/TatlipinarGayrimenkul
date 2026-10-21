@@ -9,13 +9,18 @@ const AdminPanel = {
 
   // Hazır portföy görselleri (hızlı ekleme için)
   presetImages: [
-    { label: "Kurtuluş 3+1 Daire", url: "images/ilan-kurtulus-3plus1.jpg" },
-    { label: "Hamzabey İmarlı Arsa", url: "images/ilan-hamzabey-arsa.jpg" },
-    { label: "Kocasinan Ticari Dükkan", url: "images/ilan-kocasinan-isyeri.jpg" },
-    { label: "Babaeski Yatırımlık Tarla", url: "images/ilan-babaeski-tarla.jpg" },
-    { label: "Ofis Dış Cephe", url: "images/ofis-dis-cephe.jpg" },
-    { label: "Ofis Müşteri Salonu", url: "images/ofis-ic-mekan.jpg" },
-    { label: "Lüks Villa / Müstakil", url: "images/hero-bg.jpg" }
+    { label: "Lüks Daire / Rezidans", url: "images/ilan-konut-1.jpg" },
+    { label: "Modern Daire İçi", url: "images/ilan-konut-2.jpg" },
+    { label: "Havuzlu Villa / Malikane", url: "images/ilan-villa-1.jpg" },
+    { label: "Müstakil Taş Villa", url: "images/ilan-villa-2.jpg" },
+    { label: "Doğa Çiftlik Evi", url: "images/ilan-villa-3.jpg" },
+    { label: "İmarlı Konut Arsası", url: "images/ilan-arsa-1.jpg" },
+    { label: "Ticari İmarlı Arsa", url: "images/ilan-arsa-2.jpg" },
+    { label: "Verimli Tarım Arazisi", url: "images/ilan-tarla-1.jpg" },
+    { label: "Ayçiçek Tarlası", url: "images/ilan-tarla-2.jpg" },
+    { label: "Kurumsal Dükkan & Mağaza", url: "images/ilan-ticari-1.jpg" },
+    { label: "Plaza / İş Merkezi", url: "images/ilan-ticari-4.jpg" },
+    { label: "Lojistik Depo / Antrepo", url: "images/ilan-ticari-5.jpg" }
   ],
 
   init() {

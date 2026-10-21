@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Tatlıpınar Gayrimenkul — Veri Modeli ve Başlangıç Portföyü
  * T.C. Ticaret Bakanlığı Taşınmaz Ticareti Yetki Belge No: 3900628 (EİDS Onaylı)
  */
@@ -36,9 +36,9 @@ const DEFAULT_LISTINGS = [
     date: "2026-10-18",
     dateFormatted: "18 Ekim 2026",
     images: [
-      "public/images/ilan-kurtulus-3plus1.jpg",
-      "public/images/ofis-ic-mekan.jpg",
-      "public/images/ofis-dis-cephe.jpg"
+      "images/ilan-kurtulus-3plus1.jpg",
+      "images/ofis-ic-mekan.jpg",
+      "images/ofis-dis-cephe.jpg"
     ],
     description: `Kurtuluş Mahallesi'nin en nezih ve merkezi noktasında, prestijli site içerisinde yer alan lüks 3+1 dairemiz satılıktır.
 
@@ -117,8 +117,8 @@ Daire Özellikleri:
     date: "2026-10-15",
     dateFormatted: "15 Ekim 2026",
     images: [
-      "public/images/ilan-hamzabey-arsa.jpg",
-      "public/images/hero-bg.jpg"
+      "images/ilan-hamzabey-arsa.jpg",
+      "images/hero-bg.jpg"
     ],
     description: `Kendi evinizi inşa etmenin özgürlüğünü yaşayın!
 
@@ -185,8 +185,8 @@ Lüleburgaz'ın hızla değer kazanan ve doğayla iç içe müstakil yaşam fır
     date: "2026-10-12",
     dateFormatted: "12 Ekim 2026",
     images: [
-      "public/images/ilan-kocasinan-isyeri.jpg",
-      "public/images/ofis-dis-cephe.jpg"
+      "images/ilan-kocasinan-isyeri.jpg",
+      "images/ofis-dis-cephe.jpg"
     ],
     description: `Lüleburgaz'ın en hareketli ticari aksı olan İstiklal Caddesi / Otogar mevkisinde, yüksek tabela değerine ve yaya-araç trafiğine sahip düzayak ticari dükkan kiralıktır.
 
@@ -254,8 +254,8 @@ Lüleburgaz'ın hızla değer kazanan ve doğayla iç içe müstakil yaşam fır
     date: "2026-10-10",
     dateFormatted: "10 Ekim 2026",
     images: [
-      "public/images/ilan-babaeski-tarla.jpg",
-      "public/images/ilan-hamzabey-arsa.jpg"
+      "images/ilan-babaeski-tarla.jpg",
+      "images/ilan-hamzabey-arsa.jpg"
     ],
     description: `Trakya'nın hızla değerlenen tarım ve lojistik gelişim bölgesinde, 18.500 m² tek tapulu müstakil tarla.
 
@@ -316,8 +316,8 @@ Lüleburgaz'ın hızla değer kazanan ve doğayla iç içe müstakil yaşam fır
     date: "2026-10-08",
     dateFormatted: "08 Ekim 2026",
     images: [
-      "public/images/ilan-kurtulus-3plus1.jpg",
-      "public/images/ofis-ic-mekan.jpg"
+      "images/ilan-kurtulus-3plus1.jpg",
+      "images/ofis-ic-mekan.jpg"
     ],
     description: `İstiklal Mahallesi'nde yeni tamamlanan butik apartmanda, arakat, yerden ısıtmalı ve modern tasarımlı 2+1 sıfır daire kiralıktır.
 
@@ -384,9 +384,9 @@ Lüleburgaz'ın hızla değer kazanan ve doğayla iç içe müstakil yaşam fır
     date: "2026-10-05",
     dateFormatted: "05 Ekim 2026",
     images: [
-      "public/images/hero-bg.jpg",
-      "public/images/ilan-kurtulus-3plus1.jpg",
-      "public/images/ofis-ic-mekan.jpg"
+      "images/hero-bg.jpg",
+      "images/ilan-kurtulus-3plus1.jpg",
+      "images/ofis-ic-mekan.jpg"
     ],
     description: `Lüleburgaz'ın seçkin villa yerleşiminde, 450 m² arsa payı içinde 240 m² kullanım alanlı ultra lüks müstakil dubleks villa.
 

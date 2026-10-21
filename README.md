@@ -1,4 +1,4 @@
-# Tatlıpınar Gayrimenkul — Kurumsal Web Sitesi & Yönetici Paneli
+﻿# Tatlıpınar Gayrimenkul — Kurumsal Web Sitesi & Yönetici Paneli
 
 Lüleburgaz / Kırklareli merkezli **Tatlıpınar Gayrimenkul** için modern, lüks siyah & altın temalı, mobil uyumlu, SEO odaklı ve **Sahibinden.com formatında dinamik yönetici paneline** sahip kurumsal gayrimenkul web platformu.
 
@@ -15,7 +15,7 @@ Lüleburgaz / Kırklareli merkezli **Tatlıpınar Gayrimenkul** için modern, l�
 - Logodaki derin siyah, antrasit ve şampanya altını (`#d4af37`, `#f3c64c`) renk paleti.
 - Cam efekti (glassmorphism) kartlar, yumuşak gölgeler ve altın ışıltılı mikro-etkileşimler.
 - T.C. Ticaret Bakanlığı EİDS onaylı güven rozetleri ve yerel saate göre dinamik **"Şu An Açık / Kapalı"** göstergesi.
-- Yüksek çözünürlüklü vektörel SVG kurumsal logo (`public/images/logo.svg`).
+- Yüksek çözünürlüklü vektörel SVG kurumsal logo (`images/logo.svg`).
 
 ### 2. Sahibinden.com Formatında Yönetici Paneli (`Admin Panel`)
 - **Şifre / PIN Koruması:** `3900628` yetki no veya tek tıkla demo oturum açma.

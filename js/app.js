@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Tatlıpınar Gayrimenkul — Ana Uygulama Mantığı (UX, Vitrin, Detay Modalı, Filtreleme)
  */
 
@@ -140,13 +140,13 @@ const App = {
   createListingCardHtml(item) {
     const isRental = item.type === "kiralik";
     const typeLabel = isRental ? "Kiralık" : "Satılık";
-    const mainImg = item.images && item.images.length > 0 ? item.images[0] : "public/images/hero-bg.jpg";
+    const mainImg = item.images && item.images.length > 0 ? item.images[0] : "images/hero-bg.jpg";
 
     return `
       <article class="listing-card ${item.featured ? 'is-featured' : ''}" data-id="${item.id}">
         <!-- Görsel ve Rozetler -->
         <div class="card-media">
-          <img src="${mainImg}" alt="${item.title}" loading="lazy" onerror="this.src='public/images/hero-bg.jpg'">
+          <img src="${mainImg}" alt="${item.title}" loading="lazy" onerror="this.src='images/hero-bg.jpg'">
           
           <div class="card-badges-top">
             <span class="pill-type ${isRental ? 'pill-rent' : 'pill-sale'}">${typeLabel}</span>
@@ -240,7 +240,7 @@ const App = {
     const modal = document.getElementById("listingDetailModal");
     const container = document.getElementById("listingDetailContent");
 
-    const images = item.images && item.images.length > 0 ? item.images : ["public/images/hero-bg.jpg"];
+    const images = item.images && item.images.length > 0 ? item.images : ["images/hero-bg.jpg"];
 
     container.innerHTML = `
       <!-- Üst Başlık & Sahibinden Breadcrumbs -->
@@ -278,7 +278,7 @@ const App = {
         <!-- Sol: Fotoğraf Galerisi -->
         <div class="gallery-col">
           <div class="main-carousel-view">
-            <img id="detailMainImg" src="${images[0]}" alt="${item.title}" onerror="this.src='public/images/hero-bg.jpg'">
+            <img id="detailMainImg" src="${images[0]}" alt="${item.title}" onerror="this.src='images/hero-bg.jpg'">
             ${images.length > 1 ? `
               <button class="carousel-nav-btn prev-btn" onclick="App.prevCarouselImg()">‹</button>
               <button class="carousel-nav-btn next-btn" onclick="App.nextCarouselImg()">›</button>
@@ -291,7 +291,7 @@ const App = {
             <div class="thumbnail-strip">
               ${images.map((img, idx) => `
                 <div class="thumb-item ${idx === 0 ? 'active' : ''}" onclick="App.setCarouselImg(${idx})">
-                  <img src="${img}" alt="Küçük resim ${idx + 1}" onerror="this.src='public/images/hero-bg.jpg'">
+                  <img src="${img}" alt="Küçük resim ${idx + 1}" onerror="this.src='images/hero-bg.jpg'">
                 </div>
               `).join("")}
             </div>
@@ -429,7 +429,7 @@ const App = {
           <div class="consultant-card">
             <div class="consultant-profile">
               <div class="avatar-ring">
-                <img src="public/images/orkun-tatlipinar.jpg" alt="Orkun Tatlıpınar" onerror="this.src='public/images/logo.svg'">
+                <img src="images/orkun-tatlipinar.jpg" alt="Orkun Tatlıpınar" onerror="this.src='images/logo.svg'">
               </div>
               <div>
                 <h4 class="consultant-name">Orkun Tatlıpınar</h4>

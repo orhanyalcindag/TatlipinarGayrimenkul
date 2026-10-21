@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Tatlıpınar Gayrimenkul — Yönetici Paneli (Sahibinden.com Tarzı İlan Yönetimi)
  */
 
@@ -9,13 +9,13 @@ const AdminPanel = {
 
   // Hazır portföy görselleri (hızlı ekleme için)
   presetImages: [
-    { label: "Kurtuluş 3+1 Daire", url: "public/images/ilan-kurtulus-3plus1.jpg" },
-    { label: "Hamzabey İmarlı Arsa", url: "public/images/ilan-hamzabey-arsa.jpg" },
-    { label: "Kocasinan Ticari Dükkan", url: "public/images/ilan-kocasinan-isyeri.jpg" },
-    { label: "Babaeski Yatırımlık Tarla", url: "public/images/ilan-babaeski-tarla.jpg" },
-    { label: "Ofis Dış Cephe", url: "public/images/ofis-dis-cephe.jpg" },
-    { label: "Ofis Müşteri Salonu", url: "public/images/ofis-ic-mekan.jpg" },
-    { label: "Lüks Villa / Müstakil", url: "public/images/hero-bg.jpg" }
+    { label: "Kurtuluş 3+1 Daire", url: "images/ilan-kurtulus-3plus1.jpg" },
+    { label: "Hamzabey İmarlı Arsa", url: "images/ilan-hamzabey-arsa.jpg" },
+    { label: "Kocasinan Ticari Dükkan", url: "images/ilan-kocasinan-isyeri.jpg" },
+    { label: "Babaeski Yatırımlık Tarla", url: "images/ilan-babaeski-tarla.jpg" },
+    { label: "Ofis Dış Cephe", url: "images/ofis-dis-cephe.jpg" },
+    { label: "Ofis Müşteri Salonu", url: "images/ofis-ic-mekan.jpg" },
+    { label: "Lüks Villa / Müstakil", url: "images/hero-bg.jpg" }
   ],
 
   init() {
@@ -133,7 +133,7 @@ const AdminPanel = {
       <tr class="admin-table-row">
         <td>
           <div class="table-img-wrap">
-            <img src="${item.images[0] || 'public/images/hero-bg.jpg'}" alt="${item.title}" onerror="this.src='public/images/hero-bg.jpg'">
+            <img src="${item.images[0] || 'images/hero-bg.jpg'}" alt="${item.title}" onerror="this.src='images/hero-bg.jpg'">
           </div>
         </td>
         <td>
@@ -224,7 +224,7 @@ const AdminPanel = {
       document.getElementById("formFeatured").checked = false;
 
       // Varsayılan ilk görsel
-      this.currentImages = ["public/images/ilan-kurtulus-3plus1.jpg"];
+      this.currentImages = ["images/ilan-kurtulus-3plus1.jpg"];
       this.renderImagePreviews();
     }
 
@@ -326,7 +326,7 @@ const AdminPanel = {
 
     container.innerHTML = this.currentImages.map((src, idx) => `
       <div class="admin-preview-item">
-        <img src="${src}" alt="Fotoğraf ${idx + 1}" onerror="this.src='public/images/hero-bg.jpg'">
+        <img src="${src}" alt="Fotoğraf ${idx + 1}" onerror="this.src='images/hero-bg.jpg'">
         ${idx === 0 ? '<span class="main-badge">Kapak</span>' : ''}
         <button type="button" class="btn-remove-img" onclick="AdminPanel.removeImage(${idx})" title="Fotoğrafı Kaldır">×</button>
       </div>
@@ -356,7 +356,7 @@ const AdminPanel = {
     const dateFormatted = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
     const dateIso = now.toISOString().split("T")[0];
 
-    const images = this.currentImages.length > 0 ? this.currentImages : ["public/images/hero-bg.jpg"];
+    const images = this.currentImages.length > 0 ? this.currentImages : ["images/hero-bg.jpg"];
 
     const newListing = {
       id: listingId,

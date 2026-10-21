@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
@@ -126,11 +126,11 @@
 
       <!-- Sağ Aksiyonlar -->
       <div class="nav-actions">
-        <!-- Yönetici Paneli Butonu -->
-        <button type="button" class="btn-admin-nav" onclick="AdminPanel.openAuthModal()" title="İlan Ekleme ve Yönetici Paneli">
+        <!-- Yönetici Paneli Butonu (/admin) -->
+        <a href="admin" class="btn-admin-nav" title="Yönetici Giriş Ekranı ve Portföy Yönetimi (/admin)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01"/><path d="M17 7h.01"/><path d="M7 17h.01"/><path d="M17 17h.01"/></svg>
           <span>Yönetici Paneli</span>
-        </button>
+        </a>
 
         <!-- WhatsApp İletişim -->
         <a href="https://wa.me/905378325939" target="_blank" rel="noopener" class="btn-gold hidden-mobile" title="WhatsApp Danışma">
@@ -154,7 +154,7 @@
         <li><a href="#hakkimizdaSection" class="mobile-nav-link">Hakkımızda & Ofis</a></li>
         <li><a href="#mulkumuSatSection" class="mobile-nav-link">Mülkümü Sat/Kirala</a></li>
         <li><a href="#iletisimSection" class="mobile-nav-link">İletişim</a></li>
-        <li><button type="button" class="btn-gold w-full mt-2" onclick="AdminPanel.openAuthModal()">⚙ Yönetici Paneli</button></li>
+        <li><a href="admin" class="btn-gold w-full mt-2 flex items-center justify-center gap-2">⚙ Yönetici Paneli (/admin)</a></li>
       </ul>
     </div>
   </header>
@@ -645,9 +645,9 @@
           <p style="font-size: 0.84rem; margin-bottom: 12px;">
             <strong>Portföy Hattı:</strong> 0541 634 72 76
           </p>
-          <button type="button" class="btn-admin-nav" onclick="AdminPanel.openAuthModal()">
-            ⚙ Yönetici Girişi Yap
-          </button>
+          <a href="admin" class="btn-admin-nav inline-flex items-center gap-2">
+            ⚙ Yönetici Girişi Yap (/admin)
+          </a>
         </div>
       </div>
 

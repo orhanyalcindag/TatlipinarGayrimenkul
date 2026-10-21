@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tatlıpınar Gayrimenkul — Ana Uygulama Mantığı (UX, Vitrin, Detay Modalı, Filtreleme)
  */
 
@@ -18,6 +18,11 @@ const App = {
     // Yönetici panelini başlat
     if (window.AdminPanel) {
       window.AdminPanel.init();
+    }
+
+    // URL hash'i #admin ise otomatik olarak /admin sayfasına yönlendir
+    if (window.location.hash === '#admin') {
+      window.location.href = 'admin';
     }
   },
 

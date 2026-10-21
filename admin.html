@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yönetici Paneli — Tatlıpınar Gayrimenkul (Yetki No: 3900628)</title>
+  
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#06080c">
+
+  <!-- Base URL: /admin rotasındaki tüm bağıl bağlantıların kökten yüklenmesini sağlar -->
+  <base href="/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* Admin Sayfası Özel Stilleri */
+    body {
+      background-color: var(--bg-deep);
+      min-height: 100vh;
+    }
+
+    .admin-standalone-login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: 
+        radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+        linear-gradient(180deg, #090c13 0%, #06080c 100%);
+    }
+
+    .login-portal-card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95), var(--gold-glow);
+      text-align: center;
+    }
+
+    .login-logo {
+      height: 64px;
+      width: auto;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .admin-standalone-dashboard {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .admin-standalone-dashboard.active {
+      display: flex;
+    }
+
+    .admin-top-nav {
+      background: #090c13;
+      border-bottom: 1px solid var(--border-gold-subtle);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .admin-brand img {
+      height: 44px;
+    }
+
+    .admin-main-wrap {
+      flex-grow: 1;
+      padding: 30px 24px 60px;
+      max-width: 1380px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .dashboard-panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. STANDALONE GİRİŞ EKRANI (/admin)
+       ======================================================================== -->
+  <div class="admin-standalone-login" id="standaloneLoginView">
+    <div class="login-portal-card">
+      <img src="images/logo.svg" alt="Tatlıpınar Gayrimenkul" class="login-logo">
+      
+      <div class="eids-top-badge inline-block mb-3">
+        Yetki No: 3900628 (EİDS Onaylı)
+      </div>
+
+      <h1 class="text-xl font-bold text-white mb-1">Yönetici Giriş Ekranı</h1>
+      <p class="text-xs text-slate-400 mb-6">Sahibinden.com formatında ilan eklemek ve portföyü yönetmek için yetki kodunuzu giriniz.</p>
+
+      <form id="standaloneLoginForm" onsubmit="event.preventDefault(); handleAdminLogin();">
+        <div class="form-group mb-4">
+          <label class="form-label text-left text-xs uppercase tracking-wider text-amber-400" for="adminPinField">Yetki Kodu / PIN</label>
+          <input type="password" id="adminPinField" class="form-control text-center text-lg font-mono tracking-widest" placeholder="••••••" autocomplete="current-password" required autofocus>
+          <div id="standaloneAuthError" style="color: #ef4444; font-size: 0.8rem; margin-top: 8px;"></div>
+        </div>
+
+        <button type="submit" class="btn-gold w-full justify-center py-3 text-sm mb-3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Yönetim Paneline Giriş Yap</span>
+        </button>
+
+        <button type="button" class="text-xs text-amber-400 hover:underline block mx-auto mb-5" onclick="quickDemoLogin()">
+          ⚡ Tek Tıkla Demo Giriş (PIN: 3900628)
+        </button>
+      </form>
+
+      <div class="pt-4 border-t border-slate-800">
+        <a href="/" class="text-xs text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
+          <span>←</span>
+          <span>Tatlıpınar Gayrimenkul Web Sitesine Dön</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. STANDALONE YÖNETİM DASHBOARD'U
+       ======================================================================== -->
+  <div class="admin-standalone-dashboard" id="standaloneDashboardView">
+    <!-- Üst Bar -->
+    <header class="admin-top-nav">
+      <div class="admin-brand">
+        <img src="images/logo.svg" alt="Tatlıpınar Gayrimenkul">
+        <div>
+          <div class="text-base font-extrabold text-white">Tatlıpınar Gayrimenkul — Yönetici Paneli</div>
+          <div class="text-xs text-amber-400">Sahibinden.com Formatı Portföy Yönetim Sistemi • Lüleburgaz</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button type="button" class="btn-gold" onclick="AdminPanel.openFormModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>+ Yeni İlan Ekle</span>
+        </button>
+
+        <a href="/" target="_blank" class="btn-gold-outline text-xs" title="Web Sitesini Yeni Sekmede Aç">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>Siteyi Görüntüle</span>
+        </a>
+
+        <button type="button" class="btn-table-action btn-delete ml-2" onclick="handleAdminLogout()" title="Oturumu Kapat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Ana Gövde -->
+    <main class="admin-main-wrap">
+      <div class="dashboard-panel-card">
+        <!-- İstatistik Şeridi -->
+        <div class="admin-stats-strip">
+          <div class="admin-stat-card">
+            <span class="admin-stat-num" id="statTotalListings">0</span>
+            <span class="admin-stat-text">Toplam İlan</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-num" id="statForSale">0</span>
+            <span class="admin-stat-text">Satılık Portföy</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-num" id="statForRent">0</span>
+            <span class="admin-stat-text">Kiralık Portföy</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-num" id="statFeatured">0</span>
+            <span class="admin-stat-text">Vitrindeki İlanlar</span>
+          </div>
+        </div>
+
+        <!-- Filtre ve Arama Araç Çubuğu -->
+        <div class="admin-toolbar">
+          <div class="admin-search-wrap">
+            <input type="text" id="adminSearchInput" class="form-control" placeholder="İlan başlığı, ilan no (#1340...) veya mahalle ara...">
+            <select id="adminCatFilter" class="form-control" style="max-width: 170px;">
+              <option value="all">Tüm Kategoriler</option>
+              <option value="konut">Konut / Daire</option>
+              <option value="villa">Villa / Müstakil</option>
+              <option value="arsa">İmarlı Arsa</option>
+              <option value="tarla">Tarla & Arazi</option>
+              <option value="ticari">Ticari / İş Yeri</option>
+            </select>
+            <select id="adminTypeFilter" class="form-control" style="max-width: 140px;">
+              <option value="all">Tüm İşlemler</option>
+              <option value="satilik">Satılık</option>
+              <option value="kiralik">Kiralık</option>
+            </select>
+          </div>
+
+          <div class="admin-actions-wrap">
+            <button type="button" class="btn-gold-outline text-xs" onclick="AdminPanel.exportJSON()" title="Portföyü İndir">
+              Yedekle (JSON)
+            </button>
+            <button type="button" class="btn-gold-outline text-xs" onclick="AdminPanel.importJSON()" title="Yedek Yükle">
+              İçe Aktar
+            </button>
+            <input type="file" id="adminImportFileInput" accept=".json" style="display: none;" onchange="AdminPanel.handleFileImport(event)">
+            <button type="button" class="btn-gold-outline text-xs text-rose-400 border-rose-900" onclick="AdminPanel.resetToDefaults()" title="Varsayılan Portföye Dön">
+              Sıfırla
+            </button>
+            <button type="button" class="btn-gold" onclick="AdminPanel.openFormModal()">
+              + Yeni İlan
+            </button>
+          </div>
+        </div>
+
+        <!-- İlan Tablosu -->
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 60px;">Fotoğraf</th>
+                <th style="width: 130px;">İlan No / Tarih</th>
+                <th>İlan Başlığı & Konum</th>
+                <th style="width: 160px;">Kategori / İşlem</th>
+                <th style="width: 140px;">Fiyat / m²</th>
+                <th style="width: 110px;">Vitrin</th>
+                <th style="width: 90px;">Durum</th>
+                <th style="width: 110px; text-align: center;">İşlemler</th>
+              </tr>
+            </thead>
+            <tbody id="adminListingTableBody">
+              <!-- JS renderListingTable() burayı doldurur -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       3. SAHİBİNDEN.COM FORMATI İLAN EKLEME & DÜZENLEME FORMU MODALI
+       ======================================================================== -->
+  <div class="modal-backdrop" id="adminFormModal">
+    <div class="modal-window" style="max-width: 1040px;">
+      <div class="admin-header-bar">
+        <h3 id="adminFormTitle" style="font-size: 1.15rem; font-weight: 800; color: #fff;">
+          Yeni İlan Ekle (Sahibinden.com Formatı)
+        </h3>
+        <button type="button" class="modal-close-btn" style="position: static;" onclick="AdminPanel.closeFormModal()">×</button>
+      </div>
+
+      <div style="padding: 24px 28px; max-height: calc(90vh - 80px); overflow-y: auto;">
+        <form id="sahibindenListingForm" onsubmit="AdminPanel.saveListing(event)">
+          
+          <!-- BÖLÜM 1: TEMEL BİLGİLER & İŞLEM -->
+          <div class="form-step-section">
+            <h4 class="form-step-title">
+              <span class="text-amber-400">1.</span> Temel Bilgiler ve İşlem Türü
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="form-group md:col-span-2">
+                <label class="form-label">İlan Başlığı (Sahibinden Tarzı Çekici Başlık) *</label>
+                <input type="text" id="formTitle" class="form-control" placeholder="Örn: Lüleburgaz Kurtuluş Mahallesi'nde Lüks 3+1 Sıfır Daire" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">İlan Numarası (Otomatik / Manuel)</label>
+                <input type="text" id="formListingId" class="form-control font-mono text-amber-400" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Kategori</label>
+                <select id="formCategory" class="form-control">
+                  <option value="konut">Konut / Daire</option>
+                  <option value="villa">Villa / Müstakil Ev</option>
+                  <option value="arsa">İmarlı Arsa</option>
+                  <option value="tarla">Tarla & Arazi</option>
+                  <option value="ticari">Ticari / İş Yeri / Dükkan</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">İşlem Türü</label>
+                <select id="formType" class="form-control">
+                  <option value="satilik">Satılık</option>
+                  <option value="kiralik">Kiralık</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Fiyat ve Para Birimi *</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="number" id="formPrice" class="form-control font-mono font-bold" placeholder="Örn: 4790000" required>
+                  <select id="formCurrency" class="form-control" style="max-width: 80px;">
+                    <option value="₺">₺</option>
+                    <option value="$">$</option>
+                    <option value="€">€</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Yayın Durumu</label>
+                <select id="formStatus" class="form-control">
+                  <option value="active">Aktif (Yayında)</option>
+                  <option value="passive">Pasif (Taslak / Askıda)</option>
+                </select>
+              </div>
+
+              <div class="form-group flex items-center gap-4 mt-6">
+                <label class="custom-checkbox-label">
+                  <input type="checkbox" id="formFeatured">
+                  <span class="font-bold text-amber-400">★ Vitrin İlanı Olarak İşaretle</span>
+                </label>
+              </div>
+
+              <div class="form-group flex items-center gap-4 mt-6">
+                <label class="custom-checkbox-label">
+                  <input type="checkbox" id="formEidsApproved" checked>
+                  <span class="text-emerald-400 font-bold">✓ EİDS Onaylı (Yetki No: 3900628)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- BÖLÜM 2: KONUM VE ADRES -->
+          <div class="form-step-section">
+            <h4 class="form-step-title">
+              <span class="text-amber-400">2.</span> Konum Bilgileri
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="form-group">
+                <label class="form-label">İl</label>
+                <input type="text" id="formCity" class="form-control" value="Kırklareli" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">İlçe</label>
+                <input type="text" id="formDistrict" class="form-control" value="Lüleburgaz" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Mahalle / Köy</label>
+                <input type="text" id="formNeighborhood" class="form-control" placeholder="Örn: Kurtuluş Mah." required>
+              </div>
+
+              <div class="form-group md:col-span-3">
+                <label class="form-label">Açık Adres / Tarif (Opsiyonel)</label>
+                <input type="text" id="formAddress" class="form-control" placeholder="Örn: İstiklal Caddesi Otogar Karşısı No: 13">
+              </div>
+            </div>
+          </div>
+
+          <!-- BÖLÜM 3: SAHİBİNDEN TEKNİK SPESİFİKASYONLARI -->
+          <div class="form-step-section">
+            <h4 class="form-step-title">
+              <span class="text-amber-400">3.</span> Sahibinden Emlak Detayları
+            </h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="form-group">
+                <label class="form-label">m² (Brüt) *</label>
+                <input type="number" id="formGrossM2" class="form-control" placeholder="Örn: 125" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">m² (Net)</label>
+                <input type="number" id="formNetM2" class="form-control" placeholder="Örn: 115">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Oda Sayısı</label>
+                <select id="formRoomCount" class="form-control">
+                  <option value="1+1">1+1</option>
+                  <option value="2+1">2+1</option>
+                  <option value="3+1" selected>3+1</option>
+                  <option value="4+1">4+1</option>
+                  <option value="4+2">4+2 Dubleks</option>
+                  <option value="5+1">5+1</option>
+                  <option value="1+0">Stüdyo (1+0)</option>
+                  <option value="Arsa / Parsel">Arsa / Parsel</option>
+                  <option value="Tarla / Arazi">Tarla / Arazi</option>
+                  <option value="Dükkan / Mağaza">Dükkan / Mağaza</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Bina Yaşı</label>
+                <select id="formBuildingAge" class="form-control">
+                  <option value="0 (Sıfır Bina)">0 (Sıfır Bina)</option>
+                  <option value="1 Yaşında">1 Yaşında</option>
+                  <option value="2 Yaşında">2 Yaşında</option>
+                  <option value="3 Yaşında">3 Yaşında</option>
+                  <option value="4 Yaşında">4 Yaşında</option>
+                  <option value="5-10 Yaşında">5-10 Yaşında</option>
+                  <option value="11-15 Yaşında">11-15 Yaşında</option>
+                  <option value="16-20 Yaşında">16-20 Yaşında</option>
+                  <option value="21+ Yaşında">21+ Yaşında</option>
+                  <option value="—">—</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Bulunduğu Kat</label>
+                <input type="text" id="formFloor" class="form-control" placeholder="Örn: 4. Kat, Bahçe Katı, Villa">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Kat Sayısı</label>
+                <input type="text" id="formTotalFloors" class="form-control" placeholder="Örn: 7">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Isıtma Tipi</label>
+                <select id="formHeating" class="form-control">
+                  <option value="Kombi (Doğalgaz)">Kombi (Doğalgaz)</option>
+                  <option value="Yerden Isıtma">Yerden Isıtma</option>
+                  <option value="Merkezi Sistem">Merkezi Sistem</option>
+                  <option value="Klima">Klima</option>
+                  <option value="Şömine">Şömine</option>
+                  <option value="Yok">Yok</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Banyo Sayısı</label>
+                <input type="number" id="formBathrooms" class="form-control" value="1" min="0">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Balkon</label>
+                <select id="formBalcony" class="form-control">
+                  <option value="Var">Var</option>
+                  <option value="Var (Cam Balkon)">Var (Cam Balkon)</option>
+                  <option value="2 Balkon">2 Balkon</option>
+                  <option value="Teras / Veranda">Teras / Veranda</option>
+                  <option value="Yok">Yok</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Asansör</label>
+                <select id="formElevator" class="form-control">
+                  <option value="Var">Var</option>
+                  <option value="Var (Çift Asansör)">Var (Çift Asansör)</option>
+                  <option value="Yok">Yok</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Otopark</label>
+                <select id="formParking" class="form-control">
+                  <option value="Açık Otopark">Açık Otopark</option>
+                  <option value="Kapalı Otopark">Kapalı Otopark</option>
+                  <option value="Açık ve Kapalı Otopark">Açık ve Kapalı Otopark</option>
+                  <option value="Özel Garaj">Özel Garaj</option>
+                  <option value="Yok">Yok</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Eşyalı mı?</label>
+                <select id="formFurnished" class="form-control">
+                  <option value="Hayır">Hayır</option>
+                  <option value="Evet">Evet</option>
+                  <option value="Kısmi Eşyalı">Kısmi Eşyalı</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tapu Durumu</label>
+                <select id="formDeedStatus" class="form-control">
+                  <option value="Kat Mülkiyetli">Kat Mülkiyetli</option>
+                  <option value="Kat İrtifaklı">Kat İrtifaklı</option>
+                  <option value="Müstakil Parsel">Müstakil Parsel</option>
+                  <option value="Hisseli Tapu">Hisseli Tapu</option>
+                  <option value="Arsa Tapulu">Arsa Tapulu</option>
+                </select>
+              </div>
+
+              <div class="form-group flex items-center pt-6">
+                <label class="custom-checkbox-label">
+                  <input type="checkbox" id="formCreditEligible" checked>
+                  <span>Krediye Uygun</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- BÖLÜM 4: DONANIM VE ÖZELLİK CHECKBOXLARI -->
+          <div class="form-step-section">
+            <h4 class="form-step-title">
+              <span class="text-amber-400">4.</span> İç, Dış ve Muhit Özellikleri
+            </h4>
+
+            <div class="mb-4">
+              <label class="form-label text-xs uppercase text-amber-400 tracking-wider mb-2 block">İç Özellikler</label>
+              <div class="checkbox-group-grid" id="interiorFeaturesGroup">
+                <label class="custom-checkbox-label"><input type="checkbox" value="Ankastre Fırın & Ocak"> Ankastre Fırın & Ocak</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Ebeveyn Banyosu"> Ebeveyn Banyosu</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Giyinme Odası"> Giyinme Odası</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Görüntülü Diyafon"> Görüntülü Diyafon</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Çelik Kapı"> Çelik Kapı</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Fiber İnternet Altyapısı"> Fiber İnternet</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Hilton Banyo & Duşakabin"> Duşakabin & Hilton</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Spot & LED Aydınlatma"> Spot / LED Aydınlatma</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Klima Altyapısı"> Klima Altyapısı</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Laminant Parke"> Laminant Parke</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Şömine"> Şömine</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Akıllı Ev Sistemi"> Akıllı Ev Sistemi</label>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label text-xs uppercase text-amber-400 tracking-wider mb-2 block">Dış / Bina Özellikleri</label>
+              <div class="checkbox-group-grid" id="exteriorFeaturesGroup">
+                <label class="custom-checkbox-label"><input type="checkbox" value="Asansör"> Asansör</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Kapalı Otopark"> Kapalı Otopark</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Açık Otopark"> Açık Otopark</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Isı Yalıtımı (Mantolama)"> Isı Yalıtımı</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Güvenlik Kamerası (7/24)"> 7/24 Güvenlik Kamerası</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Su Deposu & Hidrofor"> Su Deposu / Hidrofor</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Çocuk Oyun Parkı"> Çocuk Oyun Parkı</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Peyzajlı Müstakil Bahçe"> Peyzajlı Bahçe</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Asfalt Yol Cepheli"> Asfalt Yol Cepheli</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Elektrik & Su Hattı Hazır"> Elektrik & Su Hazır</label>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label text-xs uppercase text-amber-400 tracking-wider mb-2 block">Konum / Muhit</label>
+              <div class="checkbox-group-grid" id="locationFeaturesGroup">
+                <label class="custom-checkbox-label"><input type="checkbox" value="Çarşı Merkezine Yakın"> Çarşı Merkezine Yakın</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Otogar Mevkii"> Otogar Mevkii</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Toplu Taşıma Duraklarına Yakın"> Toplu Ulaşıma Yakın</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Market ve Okul Yakını"> Market ve Okul Yakını</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Sağlık Ocağı & Eczane Çevresi"> Sağlık Ocağı Yakını</label>
+                <label class="custom-checkbox-label"><input type="checkbox" value="Doğa Manzaralı & Sessiz"> Doğa Manzaralı</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- BÖLÜM 5: FOTOĞRAFLAR -->
+          <div class="form-step-section">
+            <h4 class="form-step-title">
+              <span class="text-amber-400">5.</span> İlan Fotoğrafları
+            </h4>
+            
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="newImageUrlInput" class="form-control" placeholder="Görsel Bağlantısı (URL) veya dosya yolu (Örn: images/ilan-kurtulus-3plus1.jpg)">
+              <button type="button" class="btn-gold whitespace-nowrap" onclick="AdminPanel.addImageUrl()">
+                + Fotoğraf Ekle
+              </button>
+            </div>
+
+            <div class="mt-3">
+              <span class="text-xs text-slate-400 block mb-1.5 font-semibold">Veya Hızlı Hazır Fotoğraflardan Seçin:</span>
+              <div class="preset-chip-list">
+                <button type="button" class="btn-preset-chip" onclick="AdminPanel.addPresetImage('images/ilan-kurtulus-3plus1.jpg')">+ Kurtuluş 3+1 Daire</button>
+                <button type="button" class="btn-preset-chip" onclick="AdminPanel.addPresetImage('images/ilan-hamzabey-arsa.jpg')">+ Hamzabey Arsa</button>
+                <button type="button" class="btn-preset-chip" onclick="AdminPanel.addPresetImage('images/ilan-kocasinan-isyeri.jpg')">+ Ticari Dükkan</button>
+                <button type="button" class="btn-preset-chip" onclick="AdminPanel.addPresetImage('images/ilan-babaeski-tarla.jpg')">+ Babaeski Tarla</button>
+                <button type="button" class="btn-preset-chip" onclick="AdminPanel.addPresetImage('images/hero-bg.jpg')">+ Lüks Villa / Peyzaj</button>
+                <button type="button" class="btn-preset-chip" onclick="AdminPanel.addPresetImage('images/ofis-ic-mekan.jpg')">+ Ofis İç Mekan</button>
+              </div>
+            </div>
+
+            <!-- Önizlemeler -->
+            <div class="admin-preview-list" id="adminImagePreviews">
+              <!-- JS renderImagePreviews() burayı doldurur -->
+            </div>
+          </div>
+
+          <!-- BÖLÜM 6: DETAYLI AÇIKLAMA -->
+          <div class="form-step-section">
+            <h4 class="form-step-title">
+              <span class="text-amber-400">6.</span> Detaylı İlan Açıklaması
+            </h4>
+            <div class="form-group">
+              <textarea id="formDescription" class="form-control" rows="6" placeholder="Mülkün tüm avantajlarını, çevresel özelliklerini, cephesini ve öne çıkan detaylarını detaylıca buraya yazınız..."></textarea>
+            </div>
+          </div>
+
+          <!-- Kaydet & İptal Butonları -->
+          <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px;">
+            <button type="button" class="btn-gold-outline" onclick="AdminPanel.closeFormModal()">Vazgeç</button>
+            <button type="submit" class="btn-gold px-8 py-3 text-base">
+              💾 İlanı Kaydet ve Yayınla
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       4. SAHİBİNDEN DETAY ÖNİZLEME MODALI
+       ======================================================================== -->
+  <div class="modal-backdrop" id="listingDetailModal">
+    <div class="modal-window">
+      <button type="button" class="modal-close-btn" onclick="App.closeListingDetail()" title="Kapat (ESC)">×</button>
+      <div class="modal-body-content" id="listingDetailContent">
+        <!-- JS App.openListingDetail() burayı oluşturur -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT DOSYALARI -->
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Standalone Admin Kontrol Mantığı
+    function checkAdminState() {
+      const isAuth = sessionStorage.getItem("tatlipinar_admin_auth") === "true";
+      const loginView = document.getElementById("standaloneLoginView");
+      const dashboardView = document.getElementById("standaloneDashboardView");
+
+      if (isAuth) {
+        loginView.style.display = "none";
+        dashboardView.classList.add("active");
+        if (window.AdminPanel) {
+          AdminPanel.isAuthenticated = true;
+          AdminPanel.init();
+          AdminPanel.renderStats();
+          AdminPanel.renderListingTable();
+        }
+      } else {
+        loginView.style.display = "flex";
+        dashboardView.classList.remove("active");
+        setTimeout(() => document.getElementById("adminPinField")?.focus(), 150);
+      }
+    }
+
+    function handleAdminLogin() {
+      const pin = document.getElementById("adminPinField").value.trim();
+      if (pin === APP_CONFIG.adminPin || pin === "1234" || pin === "admin") {
+        sessionStorage.setItem("tatlipinar_admin_auth", "true");
+        checkAdminState();
+        AdminPanel.showToast("Giriş Başarılı!", "Yönetici paneline hoş geldiniz.", "success");
+      } else {
+        document.getElementById("standaloneAuthError").textContent = "Hatalı yetki kodu! (Varsayılan Kod: 3900628 veya 1234)";
+      }
+    }
+
+    function quickDemoLogin() {
+      document.getElementById("adminPinField").value = "3900628";
+      handleAdminLogin();
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem("tatlipinar_admin_auth");
+      checkAdminState();
+      AdminPanel.showToast("Çıkış Yapıldı", "Yönetici oturumunuz kapatıldı.", "info");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      checkAdminState();
+    });
+  </script>
+</body>
+</html>

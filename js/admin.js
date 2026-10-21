@@ -91,14 +91,34 @@ const AdminPanel = {
   renderStats() {
     const listings = getStoredListings();
     const total = listings.length;
+    const active = listings.filter(l => (l.status || "active") === "active").length;
+    const passive = listings.filter(l => l.status === "passive").length;
     const forSale = listings.filter(l => l.type === "satilik").length;
     const forRent = listings.filter(l => l.type === "kiralik").length;
     const featured = listings.filter(l => l.featured).length;
 
-    document.getElementById("statTotalListings").textContent = total;
-    document.getElementById("statForSale").textContent = forSale;
-    document.getElementById("statForRent").textContent = forRent;
-    document.getElementById("statFeatured").textContent = featured;
+    const elTotal = document.getElementById("statTotalListings");
+    if (elTotal) elTotal.textContent = total;
+
+    const elActive = document.getElementById("statActive");
+    if (elActive) elActive.textContent = active;
+
+    const elPassive = document.getElementById("statPassive");
+    if (elPassive) elPassive.textContent = passive;
+
+    const elForSale = document.getElementById("statForSale");
+    if (elForSale) elForSale.textContent = forSale;
+
+    const elForRent = document.getElementById("statForRent");
+    if (elForRent) elForRent.textContent = forRent;
+
+    const elForSaleRent = document.getElementById("statForSaleRent");
+    if (elForSaleRent) {
+      elForSaleRent.innerHTML = `${forSale} <span class="text-xs text-slate-400 font-normal">Satılık</span> • ${forRent} <span class="text-xs text-slate-400 font-normal">Kiralık</span>`;
+    }
+
+    const elFeatured = document.getElementById("statFeatured");
+    if (elFeatured) elFeatured.textContent = featured;
   },
 
   renderListingTable() {
@@ -106,6 +126,7 @@ const AdminPanel = {
     const query = (document.getElementById("adminSearchInput")?.value || "").toLowerCase().trim();
     const catFilter = document.getElementById("adminCatFilter")?.value || "all";
     const typeFilter = document.getElementById("adminTypeFilter")?.value || "all";
+    const statusFilter = document.getElementById("adminStatusFilter")?.value || "all";
 
     const filtered = listings.filter(item => {
       const matchQuery = !query || 
@@ -114,7 +135,8 @@ const AdminPanel = {
         item.neighborhood.toLowerCase().includes(query);
       const matchCat = catFilter === "all" || item.category === catFilter;
       const matchType = typeFilter === "all" || item.type === typeFilter;
-      return matchQuery && matchCat && matchType;
+      const matchStatus = statusFilter === "all" || (item.status || "active") === statusFilter;
+      return matchQuery && matchCat && matchType && matchStatus;
     });
 
     const tbody = document.getElementById("adminListingTableBody");
@@ -134,8 +156,10 @@ const AdminPanel = {
       return;
     }
 
-    tbody.innerHTML = filtered.map(item => `
-      <tr class="admin-table-row">
+    tbody.innerHTML = filtered.map(item => {
+      const isActive = (item.status || "active") === "active";
+      return `
+      <tr class="admin-table-row ${isActive ? '' : 'is-passive-row'}">
         <td>
           <div class="table-img-wrap">
             <img src="${item.images[0] || 'images/hero-bg.jpg'}" alt="${item.title}" onerror="this.src='images/hero-bg.jpg'">
@@ -162,30 +186,38 @@ const AdminPanel = {
           <div class="text-xs text-slate-400">${item.grossM2} m² • ${item.roomCount}</div>
         </td>
         <td>
-          <button class="toggle-featured-btn ${item.featured ? 'is-featured' : ''}" onclick="AdminPanel.toggleFeatured('${item.id}')" title="Vitrin durumunu değiştir">
+          <button type="button" class="toggle-featured-btn ${item.featured ? 'is-featured' : ''}" onclick="AdminPanel.toggleFeatured('${item.id}')" title="Vitrin durumunu değiştir">
             ${item.featured ? '★ Vitrinde' : '☆ Normal'}
           </button>
         </td>
         <td>
-          <span class="badge-status ${item.status === 'active' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-800 text-slate-400'}">
-            ${item.status === 'active' ? 'Aktif' : 'Pasif'}
-          </span>
+          <button type="button" class="toggle-status-btn ${isActive ? 'is-active' : 'is-passive'}" onclick="AdminPanel.toggleStatus('${item.id}')" title="${isActive ? 'Tıklayarak ilanı pasife alabilir (siteden gizleyebilir)siniz' : 'Tıklayarak ilanı tekrar yayına alabilirsiniz'}">
+            <span class="status-indicator-dot ${isActive ? 'dot-active' : 'dot-passive'}"></span>
+            <span class="status-live-text">${isActive ? 'Yayında' : 'Pasifte'}</span>
+            <span class="status-hover-text">${isActive ? 'Pasife Al' : 'Yayına Al'}</span>
+          </button>
         </td>
         <td>
           <div class="table-actions">
-            <button class="btn-table-action btn-edit" onclick="AdminPanel.openFormModal('${item.id}')" title="Düzenle">
+            <button type="button" class="btn-table-action btn-status-toggle" onclick="AdminPanel.toggleStatus('${item.id}')" title="${isActive ? 'İlanı Pasife Al (Yayından Kaldır)' : 'İlanı Yayına Al (Siteye Koy)'}">
+              ${isActive 
+                ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="4" height="16" x="6" y="4" rx="1"/><rect width="4" height="16" x="14" y="4" rx="1"/></svg>' 
+                : '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>'}
+            </button>
+            <button type="button" class="btn-table-action btn-edit" onclick="AdminPanel.openFormModal('${item.id}')" title="Düzenle">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </button>
-            <button class="btn-table-action btn-view" onclick="AdminPanel.previewListing('${item.id}')" title="Önizle">
+            <button type="button" class="btn-table-action btn-view" onclick="AdminPanel.previewListing('${item.id}')" title="Önizle">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
             </button>
-            <button class="btn-table-action btn-delete" onclick="AdminPanel.deleteListing('${item.id}')" title="Sil">
+            <button type="button" class="btn-table-action btn-delete" onclick="AdminPanel.deleteListing('${item.id}')" title="Sil">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
             </button>
           </div>
         </td>
       </tr>
-    `).join("");
+      `;
+    }).join("");
   },
 
   getCategoryLabel(cat) {
@@ -468,6 +500,30 @@ const AdminPanel = {
     }
   },
 
+  toggleStatus(id) {
+    let listings = getStoredListings();
+    const item = listings.find(l => l.id === id);
+    if (item) {
+      const isNowPassive = (item.status || "active") === "active";
+      item.status = isNowPassive ? "passive" : "active";
+      saveStoredListings(listings);
+      this.renderStats();
+      this.renderListingTable();
+
+      if (isNowPassive) {
+        this.showToast("İlan Pasife Alındı", `#${item.id} nolu ilan yayından kaldırıldı ve sitede gizlendi.`, "info");
+      } else {
+        this.showToast("İlan Yayına Alındı", `#${item.id} nolu ilan tekrar yayına alındı ve sitede görünür yapıldı.`, "success");
+      }
+
+      // Ana sayfa vitrinini ve canlı sayaçları anında tazele
+      if (window.App && typeof window.App.renderListings === "function") {
+        window.App.renderListings();
+        window.App.updateStatsCounter();
+      }
+    }
+  },
+
   previewListing(id) {
     const listings = getStoredListings();
     const item = listings.find(l => l.id === id);
@@ -576,6 +632,10 @@ const AdminPanel = {
     const typeFilter = document.getElementById("adminTypeFilter");
     if (typeFilter) {
       typeFilter.addEventListener("change", () => this.renderListingTable());
+    }
+    const statusFilter = document.getElementById("adminStatusFilter");
+    if (statusFilter) {
+      statusFilter.addEventListener("change", () => this.renderListingTable());
     }
   }
 };

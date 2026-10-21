@@ -239,6 +239,12 @@ const App = {
     const item = listings.find(l => l.id === id);
     if (!item) return;
 
+    const isAdmin = sessionStorage.getItem("tatlipinar_admin_auth") === "true";
+    if (item.status === "passive" && !isAdmin) {
+      alert("Bu ilan şu anda yayında değildir veya portföyden kaldırılmıştır.");
+      return;
+    }
+
     this.activeModalListing = item;
     this.activeCarouselIndex = 0;
 
@@ -248,6 +254,20 @@ const App = {
     const images = item.images && item.images.length > 0 ? item.images : ["images/hero-bg.jpg"];
 
     container.innerHTML = `
+      ${item.status === 'passive' ? `
+        <div class="passive-warning-banner">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-amber-400 shrink-0"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <strong>BU İLAN ŞU AN PASİFTİR:</strong> Web sitesinde ve arama sonuçlarında ziyaretçilere <strong>gösterilmemektedir</strong>.
+            </div>
+          </div>
+          <button type="button" class="btn-activate-inline" onclick="AdminPanel.toggleStatus('${item.id}'); App.closeListingDetail();">
+            ✓ İlanı Yayına Al
+          </button>
+        </div>
+      ` : ''}
+
       <!-- Üst Başlık & Sahibinden Breadcrumbs -->
       <div class="modal-breadcrumb">
         <span>Tatlıpınar Portföy</span>
@@ -518,7 +538,7 @@ const App = {
     if (event) event.stopPropagation();
     const listings = getStoredListings();
     const item = listings.find(l => l.id === id);
-    if (!item) return;
+    if (!item || item.status === "passive") return;
 
     const message = `Merhaba Tatlıpınar Gayrimenkul,\n\n"${item.title}" (İlan No: ${item.id}, Fiyat: ${item.priceFormatted}) hakkında detaylı bilgi almak ve yerinde görmek istiyorum. Yardımcı olabilir misiniz?`;
     const encoded = encodeURIComponent(message);

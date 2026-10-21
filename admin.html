@@ -213,17 +213,21 @@
             <span class="admin-stat-num" id="statTotalListings">0</span>
             <span class="admin-stat-text">Toplam İlan</span>
           </div>
-          <div class="admin-stat-card">
-            <span class="admin-stat-num" id="statForSale">0</span>
-            <span class="admin-stat-text">Satılık Portföy</span>
+          <div class="admin-stat-card stat-card-active">
+            <span class="admin-stat-num" id="statActive">0</span>
+            <span class="admin-stat-text">🟢 Aktif (Yayında)</span>
+          </div>
+          <div class="admin-stat-card stat-card-passive">
+            <span class="admin-stat-num" id="statPassive">0</span>
+            <span class="admin-stat-text">⚪ Pasifte (Gizli)</span>
           </div>
           <div class="admin-stat-card">
-            <span class="admin-stat-num" id="statForRent">0</span>
-            <span class="admin-stat-text">Kiralık Portföy</span>
+            <span class="admin-stat-num" id="statForSaleRent" style="font-size: 1.25rem; font-weight: 700; padding-top: 6px;">0</span>
+            <span class="admin-stat-text">Portföy Dağılımı</span>
           </div>
-          <div class="admin-stat-card">
+          <div class="admin-stat-card stat-card-featured">
             <span class="admin-stat-num" id="statFeatured">0</span>
-            <span class="admin-stat-text">Vitrindeki İlanlar</span>
+            <span class="admin-stat-text">★ Vitrin İlanı</span>
           </div>
         </div>
 
@@ -231,7 +235,7 @@
         <div class="admin-toolbar">
           <div class="admin-search-wrap">
             <input type="text" id="adminSearchInput" class="form-control" placeholder="İlan başlığı, ilan no (#1340...) veya mahalle ara...">
-            <select id="adminCatFilter" class="form-control" style="max-width: 170px;">
+            <select id="adminCatFilter" class="form-control" style="max-width: 165px;">
               <option value="all">Tüm Kategoriler</option>
               <option value="konut">Konut / Daire</option>
               <option value="villa">Villa / Müstakil</option>
@@ -239,10 +243,15 @@
               <option value="tarla">Tarla & Arazi</option>
               <option value="ticari">Ticari / İş Yeri</option>
             </select>
-            <select id="adminTypeFilter" class="form-control" style="max-width: 140px;">
+            <select id="adminTypeFilter" class="form-control" style="max-width: 135px;">
               <option value="all">Tüm İşlemler</option>
               <option value="satilik">Satılık</option>
               <option value="kiralik">Kiralık</option>
+            </select>
+            <select id="adminStatusFilter" class="form-control" style="max-width: 165px;">
+              <option value="all">Tüm Durumlar</option>
+              <option value="active">🟢 Aktifler (Yayında)</option>
+              <option value="passive">⚪ Pasifler (Gizli)</option>
             </select>
           </div>
 
@@ -271,11 +280,11 @@
                 <th style="width: 60px;">Fotoğraf</th>
                 <th style="width: 130px;">İlan No / Tarih</th>
                 <th>İlan Başlığı & Konum</th>
-                <th style="width: 160px;">Kategori / İşlem</th>
+                <th style="width: 150px;">Kategori / İşlem</th>
                 <th style="width: 140px;">Fiyat / m²</th>
-                <th style="width: 110px;">Vitrin</th>
-                <th style="width: 90px;">Durum</th>
-                <th style="width: 110px; text-align: center;">İşlemler</th>
+                <th style="width: 105px;">Vitrin</th>
+                <th style="width: 125px;">Yayın Durumu</th>
+                <th style="width: 140px; text-align: center;">İşlemler</th>
               </tr>
             </thead>
             <tbody id="adminListingTableBody">
@@ -352,8 +361,8 @@
               <div class="form-group">
                 <label class="form-label">Yayın Durumu</label>
                 <select id="formStatus" class="form-control">
-                  <option value="active">Aktif (Yayında)</option>
-                  <option value="passive">Pasif (Taslak / Askıda)</option>
+                  <option value="active">🟢 Aktif (Yayında — Sitede Görünür)</option>
+                  <option value="passive">⚪ Pasif (Yayından Kaldır — Sitede Gizlenir)</option>
                 </select>
               </div>
 

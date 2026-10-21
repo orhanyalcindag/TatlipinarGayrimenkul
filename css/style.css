@@ -1764,7 +1764,7 @@ textarea.form-control {
 
 .admin-stats-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
   padding: 24px 28px;
   background: #090c13;
@@ -1778,6 +1778,26 @@ textarea.form-control {
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.admin-stat-card:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  transform: translateY(-2px);
+}
+
+.admin-stat-card.stat-card-active .admin-stat-num {
+  color: #34d399;
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.admin-stat-card.stat-card-passive .admin-stat-num {
+  color: #94a3b8;
+}
+
+.admin-stat-card.stat-card-featured .admin-stat-num {
+  color: #f59e0b;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
 }
 
 .admin-stat-num {
@@ -1919,6 +1939,154 @@ textarea.form-control {
 .btn-table-action.btn-edit:hover { background: var(--gold-primary); color: #000; }
 .btn-table-action.btn-view:hover { background: #3b82f6; color: #fff; }
 .btn-table-action.btn-delete:hover { background: #ef4444; color: #fff; }
+.btn-table-action.btn-status-toggle:hover {
+  background: rgba(212, 175, 55, 0.25);
+  color: var(--gold-light);
+  border-color: var(--gold-primary);
+}
+
+/* 1-Tık İlan Durumu Toggle Butonu & Rozetler */
+.toggle-status-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.toggle-status-btn.is-active {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #34d399;
+}
+
+.toggle-status-btn.is-active:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+}
+
+.toggle-status-btn.is-active .status-hover-text {
+  display: none;
+}
+
+.toggle-status-btn.is-active:hover .status-live-text {
+  display: none;
+}
+
+.toggle-status-btn.is-active:hover .status-hover-text {
+  display: inline;
+}
+
+.toggle-status-btn.is-passive {
+  background: rgba(100, 116, 139, 0.15);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #94a3b8;
+}
+
+.toggle-status-btn.is-passive:hover {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #34d399;
+}
+
+.toggle-status-btn.is-passive .status-hover-text {
+  display: none;
+}
+
+.toggle-status-btn.is-passive:hover .status-live-text {
+  display: none;
+}
+
+.toggle-status-btn.is-passive:hover .status-hover-text {
+  display: inline;
+}
+
+.status-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dot-active {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+.dot-passive {
+  background: #64748b;
+}
+
+.toggle-status-btn.is-active:hover .dot-active {
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.8);
+}
+
+.toggle-status-btn.is-passive:hover .dot-passive {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+/* Pasif Satır Görünümü */
+.admin-table-row.is-passive-row {
+  opacity: 0.65;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.admin-table-row.is-passive-row:hover {
+  opacity: 1;
+  background: rgba(15, 23, 42, 0.7);
+}
+
+/* Pasif İlan Detay Uyarısı */
+.passive-warning-banner {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.18) 0%, rgba(245, 158, 11, 0.18) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: #fca5a5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.passive-warning-banner strong {
+  color: #fff;
+}
+
+.btn-activate-inline {
+  background: #10b981;
+  color: #06080c;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-activate-inline:hover {
+  background: #34d399;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+  transform: translateY(-1px);
+}
 
 /* Sahibinden İlan Ekleme Formu */
 .form-step-section {

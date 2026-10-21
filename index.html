@@ -684,7 +684,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
         <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Yönetici Girişi</h3>
-        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">İlan eklemek ve portföyü sahibinden.com gibi yönetmek için yetki kodunuzu giriniz.</p>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">İlan eklemek ve portföyü yönetmek için yetki kodunuzu giriniz.</p>
 
         <form onsubmit="event.preventDefault(); AdminPanel.login(document.getElementById('adminPinInput').value);">
           <div class="form-group mb-4">
@@ -713,7 +713,7 @@
           <img src="images/logo.svg" alt="Tatlıpınar Logo" style="height: 38px;">
           <div>
             <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Tatlıpınar Gayrimenkul — Yönetim Paneli</h3>
-            <span style="font-size: 0.75rem; color: var(--gold-light);">Sahibinden.com Formatı İlan Sistemi • Yetki No: 3900628</span>
+            <span style="font-size: 0.75rem; color: var(--gold-light);">Portföy Yönetim Sistemi • Yetki No: 3900628</span>
           </div>
         </div>
 
@@ -812,7 +812,7 @@
     <div class="modal-window" style="max-width: 1040px;">
       <div class="admin-header-bar">
         <h3 id="adminFormTitle" style="font-size: 1.15rem; font-weight: 800; color: #fff;">
-          Yeni İlan Ekle (Sahibinden.com Formatı)
+          Yeni İlan Ekle
         </h3>
         <button type="button" class="modal-close-btn" style="position: static;" onclick="AdminPanel.closeFormModal()">×</button>
       </div>
@@ -827,7 +827,7 @@
             </h4>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div class="form-group md:col-span-2">
-                <label class="form-label">İlan Başlığı (Sahibinden Tarzı Çekici Başlık) *</label>
+                <label class="form-label">İlan Başlığı *</label>
                 <input type="text" id="formTitle" class="form-control" placeholder="Örn: Lüleburgaz Kurtuluş Mahallesi'nde Lüks 3+1 Sıfır Daire" required>
               </div>
 
@@ -919,10 +919,10 @@
             </div>
           </div>
 
-          <!-- BÖLÜM 3: SAHİBİNDEN TEKNİK SPESİFİKASYONLARI -->
+          <!-- BÖLÜM 3: GAYRİMENKUL DETAYLARI -->
           <div class="form-step-section">
             <h4 class="form-step-title">
-              <span class="text-amber-400">3.</span> Sahibinden Emlak Detayları
+              <span class="text-amber-400">3.</span> Gayrimenkul & Yapısal Detaylar
             </h4>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div class="form-group">

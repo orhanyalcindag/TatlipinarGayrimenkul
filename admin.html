@@ -117,7 +117,7 @@
       </div>
 
       <h1 class="text-xl font-bold text-white mb-1">Yönetici Giriş Ekranı</h1>
-      <p class="text-xs text-slate-400 mb-6">Sahibinden.com formatında ilan eklemek ve portföyü yönetmek için yetki kodunuzu giriniz.</p>
+      <p class="text-xs text-slate-400 mb-6">İlan eklemek ve portföyü yönetmek için yetki kodunuzu giriniz.</p>
 
       <form id="standaloneLoginForm" onsubmit="event.preventDefault(); handleAdminLogin();">
         <div class="form-group mb-4">
@@ -155,7 +155,7 @@
         <img src="images/logo.svg" alt="Tatlıpınar Gayrimenkul">
         <div>
           <div class="text-base font-extrabold text-white">Tatlıpınar Gayrimenkul — Yönetici Paneli</div>
-          <div class="text-xs text-amber-400">Sahibinden.com Formatı Portföy Yönetim Sistemi • Lüleburgaz</div>
+          <div class="text-xs text-amber-400">Portföy Yönetim Sistemi • Lüleburgaz</div>
         </div>
       </div>
 
@@ -260,13 +260,13 @@
   </div>
 
   <!-- ========================================================================
-       3. SAHİBİNDEN.COM FORMATI İLAN EKLEME & DÜZENLEME FORMU MODALI
+       3. İLAN EKLEME & DÜZENLEME FORMU MODALI
        ======================================================================== -->
   <div class="modal-backdrop" id="adminFormModal">
     <div class="modal-window" style="max-width: 1040px;">
       <div class="admin-header-bar">
         <h3 id="adminFormTitle" style="font-size: 1.15rem; font-weight: 800; color: #fff;">
-          Yeni İlan Ekle (Sahibinden.com Formatı)
+          Yeni İlan Ekle
         </h3>
         <button type="button" class="modal-close-btn" style="position: static;" onclick="AdminPanel.closeFormModal()">×</button>
       </div>
@@ -281,7 +281,7 @@
             </h4>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div class="form-group md:col-span-2">
-                <label class="form-label">İlan Başlığı (Sahibinden Tarzı Çekici Başlık) *</label>
+                <label class="form-label">İlan Başlığı *</label>
                 <input type="text" id="formTitle" class="form-control" placeholder="Örn: Lüleburgaz Kurtuluş Mahallesi'nde Lüks 3+1 Sıfır Daire" required>
               </div>
 
@@ -373,10 +373,10 @@
             </div>
           </div>
 
-          <!-- BÖLÜM 3: SAHİBİNDEN TEKNİK SPESİFİKASYONLARI -->
+          <!-- BÖLÜM 3: GAYRİMENKUL DETAYLARI -->
           <div class="form-step-section">
             <h4 class="form-step-title">
-              <span class="text-amber-400">3.</span> Sahibinden Emlak Detayları
+              <span class="text-amber-400">3.</span> Gayrimenkul & Yapısal Detaylar
             </h4>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div class="form-group">
@@ -615,7 +615,7 @@
   </div>
 
   <!-- ========================================================================
-       4. SAHİBİNDEN DETAY ÖNİZLEME MODALI
+       4. İLAN DETAY ÖNİZLEME MODALI
        ======================================================================== -->
   <div class="modal-backdrop" id="listingDetailModal">
     <div class="modal-window">

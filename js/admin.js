@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tatlıpınar Gayrimenkul — Yönetici Paneli (Sahibinden.com Tarzı İlan Yönetimi)
  */
 
@@ -204,14 +204,14 @@ const AdminPanel = {
     form.reset();
 
     if (id) {
-      formTitle.textContent = "İlanı Düzenle (Sahibinden Formatı)";
+      formTitle.textContent = "İlanı Düzenle";
       const listings = getStoredListings();
       const item = listings.find(l => l.id === id);
       if (item) {
         this.populateForm(item);
       }
     } else {
-      formTitle.textContent = "Yeni İlan Ekle (Sahibinden.com Formatı)";
+      formTitle.textContent = "Yeni İlan Ekle";
       // Otomatik yeni ilan no üret
       document.getElementById("formListingId").value = "134057" + Math.floor(1000 + Math.random() * 9000);
       document.getElementById("formCity").value = "Kırklareli";

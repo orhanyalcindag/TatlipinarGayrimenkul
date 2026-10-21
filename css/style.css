@@ -218,13 +218,37 @@ body {
   align-items: center;
   text-decoration: none;
   height: 60px;
+  gap: 12px;
 }
 
 .brand-logo-img {
-  height: 56px;
+  height: 52px;
   width: auto;
-  max-width: 320px;
+  border-radius: 8px;
   object-fit: contain;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #fff;
+  line-height: 1.15;
+}
+
+.brand-sub {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 2.6px;
+  color: var(--gold-primary);
+  line-height: 1.2;
 }
 
 .nav-links {
@@ -2155,12 +2179,20 @@ textarea.form-control {
   }
   .brand-logo-link {
     height: 48px;
+    gap: 8px;
     max-width: calc(100% - 56px);
   }
   .brand-logo-img {
-    height: 38px;
-    max-width: 200px;
+    height: 40px;
     width: auto;
+  }
+  .brand-title {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  .brand-sub {
+    font-size: 0.58rem;
+    letter-spacing: 2px;
   }
   .nav-actions {
     gap: 0;
@@ -2190,11 +2222,20 @@ textarea.form-control {
   }
   .brand-logo-link {
     height: 42px;
+    gap: 6px;
     max-width: calc(100% - 50px);
   }
   .brand-logo-img {
-    height: 32px;
-    max-width: 165px;
+    height: 36px;
+    width: auto;
+  }
+  .brand-title {
+    font-size: 0.88rem;
+    letter-spacing: 0.6px;
+  }
+  .brand-sub {
+    font-size: 0.52rem;
+    letter-spacing: 1.5px;
   }
   .hero-section {
     padding: 35px 0 50px;
